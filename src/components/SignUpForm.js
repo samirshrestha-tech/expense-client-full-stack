@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { CustomInput } from "./CustomInput";
 import { SignUpPage } from "../pages/SignUpPage";
+import { postUser } from "../helper/axiosHelper";
 
 const initialState = {
   name: "",
@@ -33,9 +34,18 @@ export const SignUpForm = () => {
 
     console.log(form);
 
+    const { confirmPassword, ...rest } = form;
+
     // let's check passwords if they match
+    if (confirmPassword !== rest.password) {
+      return alert("Password do not match");
+    }
 
     // call the axios helper to make the call to the api
+
+    const data = postUser(rest);
+
+    setResp(data);
   };
   const inputs = [
     {
